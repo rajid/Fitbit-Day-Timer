@@ -1,0 +1,17 @@
+.defaultText {
+  font-size: 32;
+  font-family: Fabrikat-Black;
+  font-weight: bold;
+  text-length: 32;
+}
+
+.hours {
+    font-size: 25;
+    font-weight: regular;
+}
+
+#background {
+  width: 100%;
+  height: 100%;
+  fill: white;
+}

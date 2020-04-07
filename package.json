@@ -1,0 +1,36 @@
+{
+  "name": "day-timer",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@fitbit/sdk": "~4.1.0",
+    "@fitbit/sdk-cli": "^1.7.1"
+  },
+  "fitbit": {
+    "appUUID": "ded539d2-02cd-454c-ae48-6e8dc6ee58a6",
+    "appType": "clockface",
+    "appDisplayName": "Day Timer",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ffffff",
+    "requestedPermissions": [
+        "access_internet",
+        "run_background",
+        "access_calendar",
+        "access_location",
+        "access_activity"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson",
+      "gemini",
+      "mira"
+    ],
+    "i18n": {},
+    "defaultLanguage": "en-US"
+  },
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
+  }
+}

@@ -1,0 +1,110 @@
+<svg>
+  <defs>
+    <link rel="stylesheet" href="styles.css" />
+  </defs>
+        
+<!--  <image id="background" href="background.png" /> -->
+      <rect id="background" x="0" y="0" height="100%" width="100%" fill="lightgrey"/>
+
+  <arc id="sunup"  x="0" y="0" height="250" width="250" fill="goldenrod" display="inline" arc-width="27" x="50%-125" />
+  <arc id="sundown"  x="0" y="0" height="250" width="250" fill="steelblue" display="inline" arc-width="27" x="50%-125" />
+
+  <image id="ticks" href="hour_ticks.png" fill="white" x="50%-125" y="0" height="250" width="250" />
+  <image id="numbers" href="numbers3.png" fill="white" x="50%-125" y="0" height="250" width="250" />
+
+  <gradientRect id="battery" x="50%-32" y="50%-32" width="65" height="65"
+                gradient-type="radial"
+                gradient-x1="50%" gradient-y1="50%"
+                gradient-x2="50%+1" gradient-y2="50%+1"
+                gradient-color1="blue"
+                gradient-color2="lightgrey" />
+
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
+
+
+  <g id="orbit" transform="translate(50%,50%)" opacity="1" >
+     <rect id="earthLine" x="0" y="-50%" width="1" height="50%" fill="red"  opacity="1" >
+       <g transform="translate($-1,$-30%)">
+          <circle id="earth" r="11" fill="blue" opacity="1"/>
+          <g id="moonorbit" opacity="1" >
+            <!-- x-width of earth, y-width of earth - height -->
+            <rect id="moonLine" x="$-11" y="$-31" width="1" height="20" fill="red" opacity="1"  >
+              <g transform="translate($-1,$-20)">
+                <circle id="moon" r="5" fill="blue" opacity="1"/>
+              </g>
+            </rect>
+          </g>
+       </g>
+    </rect>
+  </g>
+  
+
+<!-- Arcs of stats in corners -->
+  <svg x="0" y="0">
+    <arc id="stepsArc" x="0" y="0" width="70" height="70" fill="brown"
+    arc-width="12" start-angle="0" sweep-angle="270" />
+    <image id="stepsImage" href="stat_steps_solid_24px.png" fill="brown" x="20" y="20" width="30" height="30" />
+  </svg>
+  <svg x="0" y="100%-70">
+    <arc id="cals" x="0" y="0" width="70" height="70" fill="red"
+        arc-width="12" start-angle="0" sweep-angle="360" />
+    <image id="calsImage" href="stat_cals_solid_24px.png" fill="red" x="20" y="20" width="30" height="30" />
+ </svg>
+ <svg x="100%-70" y="0">
+    <arc id="floorsArc" x="0" y="0" width="70" height="70" fill="sienna"
+         arc-width="12" start-angle="0" sweep-angle="90" />
+    <image id="floorsImage" href="stat_floors_solid_24px.png" fill="sienna" x="20" y="20" width="30" height="30" />
+ </svg>
+
+ <svg x="100%-70" y="100%-70">
+    <arc id="activityArc" x="0" y="0" width="70" height="70" fill="orange"
+         arc-width="12" start-angle="0" sweep-angle="90" />
+    <image id="activityImage" href="stat_am_solid_24px.png" fill="orange" x="20" y="20" width="30" height="30" />
+  </svg>
+
+
+<!-- Text when touching the display -->
+  <g id="corners" display="none">
+    <text id="datebg" text-anchor="middle" x="50%+2" y="50%-10+2" font-size="25" fill="black">88/88</text>
+    <text id="date" text-anchor="middle" x="50%" y="50%-10" font-size="25" fill="white">88/88</text>
+
+    <text id="timebg" text-anchor="middle" x="50%+2" y="50%+30+2" font-size="25" fill="black">88:88</text>
+    <text id="time" text-anchor="middle" x="50%" y="50%+30" font-size="25" fill="white">88:88</text>
+
+    <text id="stepsLabelbg" x="85+4" y="90+2" fill="black" font-size="25"
+          text-anchor="start">00,000</text>
+    <text id="stepsLabel" x="85+2" y="90" fill="white" font-size="25"
+          text-anchor="start">00,000</text>
+
+    <text id="floorsLabelbg" x="100%-85" y="90+2" fill="black" font-size="25"
+           text-anchor="end">0,000</text>
+    <text id="floorsLabel" x="100%-85-2" y="90" fill="white" font-size="25"
+           text-anchor="end">0,000</text>
+
+    <text id="calsLabelbg" x="85+4" y="100%-70+2" fill="black" font-size="25"
+           text-anchor="start">00,000</text>
+    <text id="calsLabel" x="85+2" y="100%-70" fill="white" font-size="25"
+           text-anchor="start">00,000</text>
+
+    <text id="activityLabelbg" x="100%-85" y="100%-70+2" fill="black" font-size="25"
+           text-anchor="end">0,000</text>
+    <text id="activityLabel" x="100%-85-2" y="100%-70" fill="white" font-size="25"
+           text-anchor="end">0,000</text>
+  </g>
+
+  <rect id="clicker" pointer-events="visible" x="0" y="0" width="100%" height="100%" opacity="0" />
+</svg>
