@@ -68,6 +68,7 @@ var calIdx = [];
 
 let events = [];
 function getEvents() {
+    now = new Date();
     
     calendars
         .searchSources()
@@ -115,22 +116,44 @@ function getEvents() {
             return calendars.searchEvents(eventsQuery);
         })
         .then(eventData => {
+            let Testcode = 0;
             // All events
             events = [];
+
+            if (Testcode) {
+                var cid;
+                var s;
+                var e;
+            }
+
             eventData.forEach(event => {
                 let index = event.calendarId;
                 console.log(`Event is on calendar ${index} ${calIdx[`${index}`]} - display is ${sendCal[calIdx[index]]}`);
-                if (`${sendCal[calIdx[index]]}` == 'true') {
+                if (event.startDate.getDate() == now.getDate() &&
+                    `${sendCal[calIdx[index]]}` == 'true') {
                     console.log(`send this says ${sendCal[calIdx[index]]}`);
                     if (!event.isAllDay) {
-                        console.log(`${event.sourceId} [calendar calIdx[${event.calendarId}] - ${event.title}: ${event.startDate} - ${event.endDate}`);
+                        console.log(`${event.sourceId} [calendar ${calIdx[event.calendarId]} - ${event.title}: ${event.startDate} - ${event.endDate}`);
                         events.push({c: calIdx[event.calendarId],
                                      s: event.startDate.getTime(),
                                      e: event.endDate.getTime(),
                                      t: event.title});
+                        if (Testcode) {
+                            cid = event.calendarId;
+                            s = event.startDate.getTime();
+                            e = event.endDate.getTime();
+                        }
                     }
                 }
             });
+
+            if (Testcode) {
+                events.push({c: calIdx[cid],
+                             s: s+(30*60*1000),
+                             e: e+(30*60*1000),
+                             t: "Test event"});
+            }
+
 //            if (events && events.length > 0) {
                 sendEvents(events);
 //            }
@@ -218,7 +241,7 @@ function saveVal(evt, fromSettings) {
             sendSetting("goals");
         return;
 
-    case "calall":
+    case "calall": // Set or reset all calendars' "send this" setting
         if (evt.newValue == 'true') {
             for (let i in sendCal) {
                 console.log(`i = ${i}`);
@@ -362,6 +385,7 @@ messaging.peerSocket.onopen = evt => {
     
     sendSetting("clock");
     sendSetting("goals");
+    sendSetting("cal");         // update your calendar info
     
     finishInit = true;
     if (delayedEvents) {

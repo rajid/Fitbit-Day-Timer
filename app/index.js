@@ -45,7 +45,8 @@ clock.granularity = "minutes";
 clock.ontick = (evt) => {
     const now=evt.date;
 
-    if (now.getHours() == 0 && now.getMinutes() == 1) {
+    if (now.getHours() == 0 && now.getMinutes() == 1
+       && msg.peersocket.OPEN) {
         fetchCompanionData("sun");
         fetchCompanionData("calendar");
     }
@@ -85,7 +86,7 @@ function updateClock(now) {
     let grad = document.getElementById("battery");
     let level = battery.chargeLevel;
     console.log(`battery is at ${battery.chargeLevel}`);
-    level = ((level * ((screenHeight/2)+100)) / 100);
+    level = ((level * screenHeight/2) / 100) + (screenHeight/2);
     console.log(`x2,y2 = ${level}`);
     grad.gradient.x2 = level;
     grad.gradient.y2 = level;
@@ -114,6 +115,8 @@ const activityImage = document.getElementById("activityImage");
 function updateGoals() {
 
     // Steps
+    console.log(`today steps = ${today.adjusted.steps}, goal = ${goals.steps}`);
+    console.log(`steps = ${((today.adjusted.steps || 0) * 300) / goals.steps}`);
     stepsRect.width = ((today.adjusted.steps || 0) * 300) / goals.steps;
     updateArc(stepsArc, stepsLabel, stepsLabelbg, (goals.steps || 0), (today.adjusted.steps || 0), "Steps");
 
@@ -136,7 +139,7 @@ function updateGoals() {
             goal_dist = Math.round(goal_dist * 0.000621371);
         }
         floorsRect.width = ((today_dist || 0) * 300) / goals_dist;
-        updateArc(floorsArc, floorsLabel, floorsLabelbg, (goal_dist || 0), today_dist, "Distance");
+        updateArc(floorsArc, floorsLabel, floorsLabelbg, (goal_dist || 0), today_dist, "Dist.");
     }
 
     // Active Minutes
@@ -160,8 +163,8 @@ const updateArc =(arc, label, labelbg, goal, burned, text) => {
     let myBurned = (burned);
     if (myBurned > myGoal) { myBurned = myGoal;}
     arc.sweepAngle = (myBurned * 360) / myGoal;
-    label.text = `${text}: ${util.numberWithCommas(burned)}`;
-    labelbg.text = `${text}: ${util.numberWithCommas(burned)}`;
+    label.text = `${text}: ${util.numberWithCommas(burned)}/${util.numberWithCommas(goal)}`;
+    labelbg.text = `${text}: ${util.numberWithCommas(burned)}/${util.numberWithCommas(goal)}`;
 }
 
 //=====================================
@@ -218,6 +221,8 @@ function updatedData(data) {
     titles = [];
     times = [];
 
+    let eventLaps = []; // number of events which are overlapping
+    let eventDone = [];
     for (let i = 0 ; i < data.length && i < events.length; i++ ) {
         let s = new Date(data[i].s);
         let e = new Date(data[i].e);
@@ -225,10 +230,10 @@ function updatedData(data) {
 
         let startAngle = hoursToAngle(s.getHours(), s.getMinutes());
         let endAngle = hoursToAngle(e.getHours(), e.getMinutes());
-        console.log(`startTime: ${s}`);
-        console.log(`endTime: ${e}`);
-        console.log(`${startAngle} - ${endAngle} = sweep of ${endAngle - startAngle}`);
-        console.log(`Title is ${data[i].t}`);
+        console.log(`Looking at event ${i}: ${data[i].t}`);
+        console.log(` startTime: ${s}`);
+        console.log(` endTime: ${e}`);
+        console.log(` ${startAngle} - ${endAngle} = sweep of ${endAngle - startAngle}`);
 
         titles[i] = data[i].t;
         times[i] = s.getTime();
@@ -236,7 +241,7 @@ function updatedData(data) {
         let sweep = endAngle - startAngle;
         if (sweep < 0) sweep = 360 + sweep;
         if (sweep < 1) sweep = 1;
-        console.log(`startangle is ${startAngle}, endangle is ${endAngle}, sweep is ${sweep}`)
+        console.log(` startangle is ${startAngle}, endangle is ${endAngle}, sweep is ${sweep}`)
         events[i].sweepAngle = sweep;
 
         console.log(`Calendar ${c} color ${calColor[c]}`);
@@ -247,16 +252,90 @@ function updatedData(data) {
             events[i].style.fill = "purple";
         }
 
+        if (typeof(eventDone[i]) != 'undefined' && eventDone[i]) {
+            console.log(`Skipping event ${i} - ${data[i].t} because it's done already`);
+            continue;
+        }
+
+        let width = 30;
+        events[i].x = (screenHeight * 30) / 100;
+        events[i].y = (screenHeight * 30) / 100;
+        events[i].width = (screenHeight * 40) / 100;
+        events[i].height = (screenHeight * 40) / 100;
+
+        if (eventOverlaps(i, data)) {
+            console.log(`Got ${overlaps.length} overlaps`);
+
+            let saveOverlaps = 0;
+            for (let i = 0 ; i < overlaps.length ; i++) {
+                console.log(`Looking at overlaps[{i}]=${overlaps[i]}`);
+                if (typeof(eventLaps[overlaps[i]]) == 'undefined' || overlaps.length > eventLaps[overlaps[i]]) {
+                    eventLaps[i] = overlaps.length; // save greater overlaps
+                    console.log(`event ${i} has overlap size of ${overlaps.length}, which is greater than before`);
+                    saveOverlaps++;
+                }
+            }
+
+            let width = 30 / overlaps.length;
+
+            console.log(`saveOverlaps = ${saveOverlaps} overlaps.length = ${overlaps.length}`);
+            if (saveOverlaps > 0) {
+                for (let i = 0 ; i < overlaps.length ; i++) {
+                    width = 30 / overlaps.length;
+                    events[overlaps[i]].arcWidth = width;
+                    let offset = 30 + (width * (i+1));
+                    let wh =  (offset * 2);
+                    let xy = (screenHeight / 2) - offset;
+                    console.log(`events[${overlaps[i]}]: offset=${offset}, x,y=${xy}, width,height=${wh}, arcWidth=${width}`);
+                    events[overlaps[i]].x = xy;
+                    events[overlaps[i]].y = xy;
+                    events[overlaps[i]].width = wh;
+                    events[overlaps[i]].height = wh;
+                    events[overlaps[i]].style.display = "inline";
+                    console.log(`Setting event ${overlaps[i]} as done`);
+                    eventDone[overlaps[i]] = 1;
+                }
+            }
+        } else {
 //        let width = (30 / (data.length + 1)) * (i + 1);
-        let width = (30 / data.length) * (i+1);
 //        let width = ((6-(data.length)) * 5) * (i+1);
-        console.log(`data.length=${data.length} i=${i} width=${width}`);
-        if (width < 5) width = 5;
 //        let width = 30;
-        events[i].arcWidth = width;
-        console.log(`arcwidth is ${width}`);
-        events[i].style.display = "inline";
+            events[i].arcWidth = width;
+            eventDone[i] = 1;
+            events[i].style.display = "inline";
+        }
+        console.log(`i is now ${i}`);
     }
+}
+
+var overlaps = [];
+function eventOverlaps(num, data) {
+
+    overlaps=[];
+    for (let i = 0 ; i < data.length ; i++) {
+        if (i == num) {continue}
+        console.log(`Comparing num=${num} ${data[num].t} with i=${i} ${data[i].t}`);
+        if (
+            (data[num].s >= data[i].s &&
+             data[num].s <= data[i].e) ||
+            (data[num].e >= data[i].s &&
+             data[num].e <= data[i].e) ||
+
+            (data[i].s >= data[num].s &&
+             data[i].s <= data[num].e) ||
+            (data[i].e >= data[num].s &&
+             data[i].e <= data[num].e)
+           ) {
+            console.log(`${num} overlaps with ${i}`);
+            overlaps.push(i);
+        }
+    }
+
+    if (overlaps.length) {
+        overlaps.push(num); // event which overlaps this
+        console.log(`${num} has overlaps ${overlaps}`);
+    }
+    return (overlaps.length);
 }
 
 inbox.addEventListener("newfile", fileHandler);
@@ -289,7 +368,7 @@ msg.peerSocket.onopen = evt => {
         msg.peerSocket.send({command: "lite"});
     }
     fetchCompanionData("sun");
-    fetchCompanionData("calendar");
+//    fetchCompanionData("calendar");
 }
 
 // Try to fix a comm/peerSocket communication error by exiting
@@ -391,12 +470,14 @@ msg.peerSocket.onmessage = evt => {
         if (evt.data.value == "none") {
             bg.style.display = "none";
             grad.gradient.colors.c2 = "black";
+            cornerbg.style.fill = "black";
             cornerbg.style.display = "none";
         } else {
             bg.style.display = "inline";
             bg.style.fill = evt.data.value;
             grad.gradient.colors.c2 = evt.data.value;
             cornerbg.style.fill = evt.data.value;
+            cornerbg.style.display = "inline";
         }
         break;
 
@@ -518,7 +599,6 @@ function wakeupFetch() {
 
 let cornerEnd = 0; // init
 let clicker = document.getElementById("clicker");
-let corners = document.getElementById("corners");
 const cornerTimeInit = 10;      // time to remain on screen
 
 clicker.onclick = function(e) {
@@ -528,7 +608,10 @@ clicker.onclick = function(e) {
         cornerEnd = cornerEnd.getTime() + (cornerTimeInit * 1000);
         setTimeout(updateCorners, cornerTimeInit * 1000);
         
+        let corners = document.getElementById("corners");
+        let cornerbg = document.getElementById("cornerbg");
         corners.style.display = "inline";
+        cornerbg.style.display = "inline";
         updateCorners();
         fetchCompanionData("calendar");
     } else {
@@ -544,6 +627,7 @@ function updateCorners() {
     let date = document.getElementById("date");
 //    let timebg = document.getElementById("timebg");
     let time = document.getElementById("time");
+    let corners = document.getElementById("corners");
 
     /*
      * Update corner numbers, if we're showing them

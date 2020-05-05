@@ -7,6 +7,8 @@ function settingsComponent(props) {
         reading of minutes.
         Touching the display will show month, date, hour and minute, as well as statistics values
       </Section>
+          <Text>(Scroll to end for Release Notes)</Text>
+          <Text>I am interested in hearing from my end-users, please use the app feedback to let me know what you think!</Text>
 
       <Link source={"https://dev.fitbit.com/build/guides/user-interface/css/#web-color-names"}>
         Click this text for a list of understood color names
@@ -227,7 +229,17 @@ function settingsComponent(props) {
                     <Toggle settingsKey="cal29" label="Display this calendar" />
               </Section>
       }
-      </Page>
+<Section title={<Text align="center">Release Notes:</Text>}>
+  <Text align="left" bold>1.1.0</Text>
+  <Text>
+  Improved battery level display.
+  Fixed bug in textual display of step count.
+  Correctly calculate overlapping events and handle them better.
+  Only fetch calendar data after settings info has initialized.
+  Change 2nd screen to display more useful information on next event and stats.
+  </Text>
+</Section>
+</Page>
   )
 }
 

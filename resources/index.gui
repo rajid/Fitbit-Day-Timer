@@ -6,34 +6,34 @@
 <!--  <image id="background" href="background.png" /> -->
       <rect id="background" x="0" y="0" height="100%" width="100%" fill="lightgrey"/>
 
+  <gradientRect id="battery" x="0" y="0" width="100%" height="100%"
+                gradient-type="radial"
+                gradient-x1="50%" gradient-y1="50%"
+                gradient-x2="80%" gradient-y2="80%"
+                gradient-color1="blue"
+                gradient-color2="lightgrey" opacity="0.5"/>
+
   <arc id="sunup"  x="0" y="0" height="100%" width="100%" fill="goldenrod" display="inline" arc-width="32" />
   <arc id="sundown"  x="0" y="0" height="100%" width="100%" fill="steelblue" display="inline" arc-width="32" />
 
   <image id="ticks" href="hour_ticks.png" fill="white" />
   <image id="numbers" href="numbers3.png" fill="white" />
 
-  <gradientRect id="battery" x="37%" y="37%" width="26%" height="26%"
-                gradient-type="radial"
-                gradient-x1="50%" gradient-y1="50%"
-                gradient-x2="50%+1" gradient-y2="50%+1"
-                gradient-color1="blue"
-                gradient-color2="lightgrey" />
-
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
-  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity=".5"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
+  <arc class="events" fill="green" x="30%" y="30%" width="40%" height="40%" arc-width="0" sweep-angle="0" opacity="1"/>
 
 
   <g id="orbit" transform="translate(50%,50%)" opacity="1" >
@@ -84,32 +84,32 @@
 
     <text id="datebg" text-anchor="middle" x="50%+2" y="30+2" font-size="35" fill="black">88/88 88:88</text>
     <text id="date" text-anchor="middle" x="50%" y="30" font-size="35" fill="white">88/88 88:88</text>
-    <textarea id="nextbg" x="0+2" y="35+2" font-size="30" text-length="100" fill="black" height="50%"/>
-    <textarea id="next" x="0" y="35" font-size="30" text-length="100" fill="white" height="50%"/>
+    <textarea id="nextbg" x="0+2" y="35+2" font-size="30" text-length="100" fill="black" height="50%" />
+    <textarea id="next" x="0" y="35" font-size="30" text-length="100" fill="white" height="50%" />
 
     <rect id="floorsRect" x="0" y="100%-33" width="10" height="30" fill="sienna" />
     <text id="floorsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="30"
-          text-anchor="start" text-length="20" />
-    <text id="floorsLabel" x="0" y="-33" fill="white" font-size="30"
-           text-anchor="start" text-length="20" />
+          text-anchor="start" text-length="25" />
+    <text id="floorsLabel" x="0" y="$-33" fill="white" font-size="30"
+           text-anchor="start" text-length="25" />
 
     <rect id="calsRect" x="0" y="100%-66" width="10" height="30" fill="red" />
     <text id="calsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="30"
-          text-anchor="start" text-length="20" />
+          text-anchor="start" text-length="25" />
     <text id="calsLabel" x="0" y="$-33" fill="white" font-size="30"
-           text-anchor="start" text-length="20" />
+           text-anchor="start" text-length="25" />
 
     <rect id="activityRect" x="0" y="100%-99" width="10" height="30" fill="orange" />
     <text id="activityLabelbg" x="0+2" y="$-7+2" fill="black" font-size="30"
-          text-anchor="start" text-length="20" />
+          text-anchor="start" text-length="25" />
     <text id="activityLabel" x="0" y="$-33-2" fill="white" font-size="30"
-           text-anchor="start" text-length="20" />
+           text-anchor="start" text-length="25" />
 
     <rect id="stepsRect" x="0" y="100%-132" width="10" height="30" fill="brown" />
     <text id="stepsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="30"
-          text-anchor="start" text-length="20" />
+          text-anchor="start" text-length="25" />
     <text id="stepsLabel" x="0" y="$-33-2" fill="white" font-size="30"
-          text-anchor="start" text-length="20" />
+          text-anchor="start" text-length="25" />
 
   </g>
 
