@@ -6,18 +6,19 @@
 <!--  <image id="background" href="background.png" /> -->
       <rect id="background" x="0" y="0" height="100%" width="100%" fill="lightgrey"/>
 
+  <gradientRect id="battery" x="50%-32" y="50%-32" width="65" height="65"
+                gradient-type="radial"
+                gradient-x1="50%" gradient-y1="50%"
+                gradient-x2="50%+1" gradient-y2="50%+1"
+                gradient-color1="blue"
+                gradient-color2="lightgrey" opacity="0.5"/>
+
   <arc id="sunup"  x="0" y="0" height="250" width="250" fill="goldenrod" display="inline" arc-width="27" x="50%-125" />
   <arc id="sundown"  x="0" y="0" height="250" width="250" fill="steelblue" display="inline" arc-width="27" x="50%-125" />
 
   <image id="ticks" href="hour_ticks.png" fill="white" x="50%-125" y="0" height="250" width="250" />
   <image id="numbers" href="numbers3.png" fill="white" x="50%-125" y="0" height="250" width="250" />
 
-  <gradientRect id="battery" x="50%-32" y="50%-32" width="65" height="65"
-                gradient-type="radial"
-                gradient-x1="50%" gradient-y1="50%"
-                gradient-x2="50%+1" gradient-y2="50%+1"
-                gradient-color1="blue"
-                gradient-color2="lightgrey" />
 
   <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
   <arc class="events" fill="green" x="50%-50" y="75" width="100" height="100" arc-width="0" sweep-angle="0" opacity=".5"/>
@@ -79,31 +80,37 @@
 
 <!-- Text when touching the display -->
   <g id="corners" display="none">
-    <text id="datebg" text-anchor="middle" x="50%+2" y="50%-10+2" font-size="25" fill="black">88/88</text>
-    <text id="date" text-anchor="middle" x="50%" y="50%-10" font-size="25" fill="white">88/88</text>
+    <rect id="cornerbg" x="0" y="0" width="100%" height="100%" fill="white" />
 
-    <text id="timebg" text-anchor="middle" x="50%+2" y="50%+30+2" font-size="25" fill="black">88:88</text>
-    <text id="time" text-anchor="middle" x="50%" y="50%+30" font-size="25" fill="white">88:88</text>
+    <text id="datebg" text-anchor="middle" x="50%+2" y="30+2" font-size="35" fill="black">88/88 88:88</text>
+    <text id="date" text-anchor="middle" x="50%" y="30" font-size="35" fill="white">88/88 88:88</text>
+    <textarea id="nextbg" x="0+2" y="35+2" font-size="30" text-length="100" fill="black" height="50%" />
+    <textarea id="next" x="0" y="35" font-size="30" text-length="100" fill="white" height="50%" />
 
-    <text id="stepsLabelbg" x="85+4" y="90+2" fill="black" font-size="25"
-          text-anchor="start">00,000</text>
-    <text id="stepsLabel" x="85+2" y="90" fill="white" font-size="25"
-          text-anchor="start">00,000</text>
+    <rect id="floorsRect" x="0" y="100%-25" width="10" height="25" fill="sienna" />
+    <text id="floorsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="25"
+          text-anchor="start" text-length="25" />
+    <text id="floorsLabel" x="0" y="$-25" fill="white" font-size="25"
+           text-anchor="start" text-length="25" />
 
-    <text id="floorsLabelbg" x="100%-85" y="90+2" fill="black" font-size="25"
-           text-anchor="end">0,000</text>
-    <text id="floorsLabel" x="100%-85-2" y="90" fill="white" font-size="25"
-           text-anchor="end">0,000</text>
+    <rect id="calsRect" x="0" y="100%-50" width="10" height="25" fill="red" />
+    <text id="calsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="25"
+          text-anchor="start" text-length="25" />
+    <text id="calsLabel" x="0" y="$-25" fill="white" font-size="25"
+           text-anchor="start" text-length="25" />
 
-    <text id="calsLabelbg" x="85+4" y="100%-70+2" fill="black" font-size="25"
-           text-anchor="start">00,000</text>
-    <text id="calsLabel" x="85+2" y="100%-70" fill="white" font-size="25"
-           text-anchor="start">00,000</text>
+    <rect id="activityRect" x="0" y="100%-75" width="10" height="25" fill="orange" />
+    <text id="activityLabelbg" x="0+2" y="$-7+2" fill="black" font-size="25"
+          text-anchor="start" text-length="25" />
+    <text id="activityLabel" x="0" y="$-25" fill="white" font-size="25"
+           text-anchor="start" text-length="25" />
 
-    <text id="activityLabelbg" x="100%-85" y="100%-70+2" fill="black" font-size="25"
-           text-anchor="end">0,000</text>
-    <text id="activityLabel" x="100%-85-2" y="100%-70" fill="white" font-size="25"
-           text-anchor="end">0,000</text>
+    <rect id="stepsRect" x="0" y="100%-100" width="10" height="25" fill="brown" />
+    <text id="stepsLabelbg" x="0+2" y="$-7+2" fill="black" font-size="25"
+          text-anchor="start" text-length="25" />
+    <text id="stepsLabel" x="0" y="$-25" fill="white" font-size="25"
+          text-anchor="start" text-length="25" />
+
   </g>
 
   <rect id="clicker" pointer-events="visible" x="0" y="0" width="100%" height="100%" opacity="0" />

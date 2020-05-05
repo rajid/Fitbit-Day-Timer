@@ -38,6 +38,7 @@ if (!device.screen) device.screen = {
 };
 const screenWidth = device.screen.width;
 const screenHeight = device.screen.height;
+const screenWidthOffset = (screenWidth - screenHeight) / 2;
 
 var now;
 
@@ -258,7 +259,7 @@ function updatedData(data) {
         }
 
         let width = 30;
-        events[i].x = (screenHeight * 30) / 100;
+        events[i].x = ((screenHeight * 30) / 100) + screenWidthOffset;
         events[i].y = (screenHeight * 30) / 100;
         events[i].width = (screenHeight * 40) / 100;
         events[i].height = (screenHeight * 40) / 100;
@@ -285,10 +286,9 @@ function updatedData(data) {
                     events[overlaps[i]].arcWidth = width;
                     let offset = 30 + (width * (i+1));
                     let wh =  (offset * 2);
-                    let xy = (screenHeight / 2) - offset;
-                    console.log(`events[${overlaps[i]}]: offset=${offset}, x,y=${xy}, width,height=${wh}, arcWidth=${width}`);
-                    events[overlaps[i]].x = xy;
-                    events[overlaps[i]].y = xy;
+                    console.log(`events[${overlaps[i]}]: offset=${offset}, width,height=${wh}, arcWidth=${width}`);
+                    events[overlaps[i]].x = ((screenHeight / 2) - screenWidthOffset) - offset;
+                    events[overlaps[i]].y = (screenHeight / 2) - offset;
                     events[overlaps[i]].width = wh;
                     events[overlaps[i]].height = wh;
                     events[overlaps[i]].style.display = "inline";
